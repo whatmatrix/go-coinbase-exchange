@@ -2,12 +2,14 @@ package coinbase
 
 import (
 	"fmt"
+
+	"github.com/shopspring/decimal"
 )
 
 type Currency struct {
-	Id      string  `json:"id"`
-	Name    string  `json:"name"`
-	MinSize float64 `json:"min_size,string"`
+	Id      string          `json:"id"`
+	Name    string          `json:"name"`
+	MinSize decimal.Decimal `json:"min_size,string"`
 }
 
 func (c *Client) GetCurrencies() ([]Currency, error) {

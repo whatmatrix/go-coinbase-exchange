@@ -2,28 +2,33 @@ package coinbase
 
 import (
 	"fmt"
+
+	"github.com/shopspring/decimal"
 )
 
 type Order struct {
-	Type      string  `json:"type"`
-	Size      float64 `json:"size,string"`
-	Side      string  `json:"side"`
-	ProductId string  `json:"product_id"`
-	ClientOID string  `json:"client_oid,omitempty"`
-	Stp       string  `json:"stp,omitempty"`
+	Type      string          `json:"type"`
+	Size      decimal.Decimal `json:"size,string"`
+	Side      string          `json:"side"`
+	ProductId string          `json:"product_id"`
+	ClientOID string          `json:"client_oid,omitempty"`
+	Stp       string          `json:"stp,omitempty"`
 	// Limit Order
-	Price       float64 `json:"price,string,omitempty"`
-	TimeInForce string  `json:"time_in_force,omitempty"`
-	PostOnly    bool    `json:"post_only,omitempty"`
-	CancelAfter string  `json:"cancel_after,omitempty"`
+	Price       decimal.Decimal `json:"price,string,omitempty"`
+	TimeInForce string          `json:"time_in_force,omitempty"`
+	PostOnly    bool            `json:"post_only,omitempty"`
+	CancelAfter string          `json:"cancel_after,omitempty"`
 	// Market Order
-	Funds float64 `json:"funds,string,omitempty"`
+	Funds decimal.Decimal `json:"funds,string,omitempty"`
 	// Response Fields
-	Id         string `json:"id"`
-	Status     string `json:"status,omitempty"`
-	Settled    bool   `json:"settled,omitempty"`
-	DoneReason string `json:"done_reason,omitempty"`
-	CreatedAt  Time   `json:"created_at,string,omitempty"`
+	Id            string          `json:"id"`
+	Status        string          `json:"status,omitempty"`
+	Settled       bool            `json:"settled,omitempty"`
+	DoneReason    string          `json:"done_reason,omitempty"`
+	CreatedAt     Time            `json:"created_at,string,omitempty"`
+	FillFee       decimal.Decimal `json:"fill_fee,omitempty"`
+	FilledSize    decimal.Decimal `json:"filled_size,omitempty"`
+	ExecutedValue decimal.Decimal `json:"executed_value,omitempty"`
 }
 
 type ListOrdersParams struct {

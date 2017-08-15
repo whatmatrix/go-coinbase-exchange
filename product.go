@@ -7,33 +7,35 @@ import (
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 type Product struct {
-	Id             string  `json:"id"`
-	BaseCurrency   string  `json:"base_currency"`
-	QuoteCurrency  string  `json:"quote_currency"`
-	BaseMinSize    float64 `json:"base_min_size,string"`
-	BaseMaxSize    float64 `json:"base_max_size,string"`
-	QuoteIncrement float64 `json:"quote_increment,string"`
+	Id             string          `json:"id"`
+	BaseCurrency   string          `json:"base_currency"`
+	QuoteCurrency  string          `json:"quote_currency"`
+	BaseMinSize    decimal.Decimal `json:"base_min_size,string"`
+	BaseMaxSize    decimal.Decimal `json:"base_max_size,string"`
+	QuoteIncrement decimal.Decimal `json:"quote_increment,string"`
 }
 
 type Ticker struct {
-	TradeId int     `json:"trade_id,number"`
-	Price   float64 `json:"price,string"`
-	Size    float64 `json:"size,string"`
-	Time    Time    `json:"time,string"`
-	Bid     float64 `json:"bid,string"`
-	Ask     float64 `json:"ask,string"`
-	Volume  float64 `json:"volume,string"`
+	TradeId int             `json:"trade_id,number"`
+	Price   decimal.Decimal `json:"price,string"`
+	Size    decimal.Decimal `json:"size,string"`
+	Time    Time            `json:"time,string"`
+	Bid     decimal.Decimal `json:"bid,string"`
+	Ask     decimal.Decimal `json:"ask,string"`
+	Volume  decimal.Decimal `json:"volume,string"`
 }
 
 type Trade struct {
-	TradeId int     `json:"trade_id,number"`
-	Price   float64 `json:"price,string"`
-	Size    float64 `json:"size,string"`
-	Time    Time    `json:"time,string"`
-	Side    string  `json:"side"`
+	TradeId int             `json:"trade_id,number"`
+	Price   decimal.Decimal `json:"price,string"`
+	Size    decimal.Decimal `json:"size,string"`
+	Time    Time            `json:"time,string"`
+	Side    string          `json:"side"`
 }
 
 type HistoricRate struct {
@@ -46,15 +48,15 @@ type HistoricRate struct {
 }
 
 type Stats struct {
-	Low    float64 `json:"low,string"`
-	High   float64 `json:"high,string"`
-	Open   float64 `json:"open,string"`
-	Volume float64 `json:"volume,string"`
+	Low    decimal.Decimal `json:"low,string"`
+	High   decimal.Decimal `json:"high,string"`
+	Open   decimal.Decimal `json:"open,string"`
+	Volume decimal.Decimal `json:"volume,string"`
 }
 
 type BookEntry struct {
-	Price          float64
-	Size           float64
+	Price          decimal.Decimal
+	Size           decimal.Decimal
 	NumberOfOrders int
 	OrderId        string
 }
@@ -92,12 +94,12 @@ func (e *BookEntry) UnmarshalJSON(data []byte) error {
 		return errors.New("Expected string")
 	}
 
-	price, err := strconv.ParseFloat(priceString, 32)
+	price, err := decimal.NewFromString(priceString)
 	if err != nil {
 		return err
 	}
 
-	size, err := strconv.ParseFloat(sizeString, 32)
+	size, err := decimal.NewFromString(sizeString)
 	if err != nil {
 		return err
 	}

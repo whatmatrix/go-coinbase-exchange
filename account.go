@@ -2,25 +2,27 @@ package coinbase
 
 import (
 	"fmt"
+
+	"github.com/shopspring/decimal"
 )
 
 type Account struct {
-	Id        string  `json:"id"`
-	Balance   float64 `json:"balance,string"`
-	Hold      float64 `json:"hold,string"`
-	Available float64 `json:"available,string"`
-	Currency  string  `json:"currency"`
+	Id        string          `json:"id"`
+	Balance   decimal.Decimal `json:"balance,string"`
+	Hold      decimal.Decimal `json:"hold,string"`
+	Available decimal.Decimal `json:"available,string"`
+	Currency  string          `json:"currency"`
 }
 
 // Ledger
 
 type LedgerEntry struct {
-	Id        int           `json:"id,number"`
-	CreatedAt Time          `json:"created_at,string"`
-	Amount    float64       `json:"amount,string"`
-	Balance   float64       `json:"balance,string"`
-	Type      string        `json:"type"`
-	Details   LedgerDetails `json:"details"`
+	Id        int             `json:"id,number"`
+	CreatedAt Time            `json:"created_at,string"`
+	Amount    decimal.Decimal `json:"amount,string"`
+	Balance   decimal.Decimal `json:"balance,string"`
+	Type      string          `json:"type"`
+	Details   LedgerDetails   `json:"details"`
 }
 
 type LedgerDetails struct {
